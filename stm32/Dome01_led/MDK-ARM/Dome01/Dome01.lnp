@@ -1,0 +1,24 @@
+--cpu Cortex-M3
+"dome01\startup_stm32f103xe.o"
+"dome01\main.o"
+"dome01\gpio.o"
+"dome01\stm32f1xx_it.o"
+"dome01\stm32f1xx_hal_msp.o"
+"dome01\stm32f1xx_hal_gpio_ex.o"
+"dome01\stm32f1xx_hal_tim.o"
+"dome01\stm32f1xx_hal_tim_ex.o"
+"dome01\stm32f1xx_hal.o"
+"dome01\stm32f1xx_hal_rcc.o"
+"dome01\stm32f1xx_hal_rcc_ex.o"
+"dome01\stm32f1xx_hal_gpio.o"
+"dome01\stm32f1xx_hal_dma.o"
+"dome01\stm32f1xx_hal_cortex.o"
+"dome01\stm32f1xx_hal_pwr.o"
+"dome01\stm32f1xx_hal_flash.o"
+"dome01\stm32f1xx_hal_flash_ex.o"
+"dome01\stm32f1xx_hal_exti.o"
+"dome01\system_stm32f1xx.o"
+--strict --scatter "Dome01\Dome01.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Dome01.map" -o Dome01\Dome01.axf
