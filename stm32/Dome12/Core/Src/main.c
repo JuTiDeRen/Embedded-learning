@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -63,6 +64,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+	
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -85,27 +87,29 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_I2C1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	uint8_t w_buf[8] = {0,1,2,3,4,5,6,7};
+	uint8_t r_buf[8];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		//单片机发给电脑
-//		uint8_t txbuf[] = "Hello world";
-//		HAL_UART_Transmit(&huart1,txbuf,sizeof(txbuf),1000);
-//		HAL_Delay(1000);
-		
-		//电脑发给单片机
-//		uint8_t rxbuf[10];
-//		uint8_t txbuf[] = "i go it\n";
-//		if(HAL_UART_Receive(&huart1,rxbuf,sizeof(rxbuf),10000) == HAL_OK) {
-//			HAL_UART_Transmit(&huart1,txbuf,sizeof(txbuf),1000);
-//		}
-		printf("Hallo world123");
+		//实现忘芯片写入8byte
+		if(HAL_I2C_Mem_Write(&hi2c1,0x0A,0x00,I2C_MEMADD_SIZE_8BIT,w_buf,sizeof(w_buf),0xff) == HAL_OK) {
+			printf("weite success\n");
+		}
+		HAL_Delay(10);
+		//再实现，从芯片读取8byte
+		HAL_I2C_Mem_Read(&hi2c1,0xA1,0x00,I2C_MEMADD_SIZE_8BIT,r_buf,sizeof(r_buf),0xff);
+		printf("r_buf = ");
+		for(int i = 0; sizeof(r_buf); i++) {
+			printf("%d",r_buf[i]);
+		}
+		printf("\n");
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -131,7 +135,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {

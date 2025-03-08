@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"dome12\startup_stm32f103xe.o"
+"dome12\main.o"
+"dome12\gpio.o"
+"dome12\i2c.o"
+"dome12\usart.o"
+"dome12\stm32f1xx_it.o"
+"dome12\stm32f1xx_hal_msp.o"
+"dome12\stm32f1xx_hal_gpio_ex.o"
+"dome12\stm32f1xx_hal_i2c.o"
+"dome12\stm32f1xx_hal.o"
+"dome12\stm32f1xx_hal_rcc.o"
+"dome12\stm32f1xx_hal_rcc_ex.o"
+"dome12\stm32f1xx_hal_gpio.o"
+"dome12\stm32f1xx_hal_dma.o"
+"dome12\stm32f1xx_hal_cortex.o"
+"dome12\stm32f1xx_hal_pwr.o"
+"dome12\stm32f1xx_hal_flash.o"
+"dome12\stm32f1xx_hal_flash_ex.o"
+"dome12\stm32f1xx_hal_exti.o"
+"dome12\stm32f1xx_hal_tim.o"
+"dome12\stm32f1xx_hal_tim_ex.o"
+"dome12\stm32f1xx_hal_uart.o"
+"dome12\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "Dome12\Dome12.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Dome12.map" -o Dome12\Dome12.axf
